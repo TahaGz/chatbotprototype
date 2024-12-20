@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/e0316f50-e931-4e77-940d-b971dd1f5816)# chatbotprototype
+# chatbotprototype
 A chatbot prototype with an animated avatar for the historical figure Hannibal the Carthaginian.
 This chatbot only supports arabic and only works with hard-coded questions for now.
 
