@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hannibal</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'chatbot/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'chatbot/style.css' %}">
+</head>
+<body>
+  <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+  <div class="chat-window">
+
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="{% static 'chatbot/logo.jpg' %}" alt="Logo" class="logo">
+    </div>
+
+    <!-- Avatar with dynamic GIF/video -->
+    <div class="avatar-container">
+        <img id="avatar" src="{% static 'chatbot/avatar_idle.gif' %}" alt="Avatar" class="avatar">
+    </div>
+    
+    <!-- Response Container -->
+    <div id="response-container" class="response-container"></div>
+    
+    <!-- Microphone Button -->
+    <button id="speak-button" class="speak-button" onclick="toggleVoiceInput()">
+        <div class="circle">
+            <img src="{% static 'chatbot/mic.png' %}" alt="Microphone Icon" class="mic-icon">
+        </div>
+    </button>
+  </div>
+</body>
+
+<!-- JavaScript -->
+<script>
+    // Initialize Speech Recognition
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "ar-TN"; // Set recognition language
+    let isRecording = false; // Toggle for recording state
+
+    const avatar = document.getElementById("avatar"); // Avatar element reference
+    const idleAvatar = "{% static 'chatbot/avatar_idle.gif' %}"; // Idle animation
+    const talkingAvatar = "{% static 'chatbot/avatar_talking.gif' %}"; // Talking animation
+
+    // Toggle voice input
+    function toggleVoiceInput() {
+        const circle = document.querySelector(".circle");
+
+        if (isRecording) {
+            // Stop recording
+            recognition.stop();
+            isRecording = false;
+            console.log("Listening canceled.");
+        } else {
+            // Start recording
+            recognition.start();
+            isRecording = true;
+            console.log("Listening started.");
+            circle.classList.remove("green");
+            circle.classList.add("red");
+
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+                console.log("User said:", transcript);
+
+                // Send user input to backend
+                sendToChatbot(transcript);
+            };
+
+            recognition.onerror = function (event) {
+                console.error("Speech recognition error:", event.error);
+                isRecording = false;
+            };
+
+            recognition.onend = function () {
+                console.log("Recognition ended.");
+                isRecording = false;
+            };
+        }
+    }
+
+    // Send user input to the backend
+    function sendToChatbot(userInput) {
+        fetch("", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+            body: JSON.stringify({ user_input: userInput }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.response && data.audio) {
+                console.log("Bot response:", data.response);
+                console.log("Audio file:", data.audio);
+
+                // Play the audio response
+                playAudio(data.audio);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
+    // Play the MP3 file from the backend response
+    function playAudio(audioFilePath) {
+        const audio = new Audio(audioFilePath);
+
+        // Start talking animation when audio starts
+        audio.onplay = () => {
+            console.log("Talking animation starts");
+            toggleAvatar(true); // Switch to talking avatar
+        };
+
+        // Return to idle animation when audio ends
+        audio.onended = () => {
+            console.log("Talking animation ends");
+            toggleAvatar(false); // Switch back to idle avatar
+        };
+
+        // Play the audio
+        audio.play();
+    }
+
+    // Function to toggle avatar animation
+    function toggleAvatar(isTalking) {
+        const avatar = document.getElementById("avatar");
+        const idleAvatar = "{% static 'chatbot/avatar_idle.gif' %}";
+        const talkingAvatar = "{% static 'chatbot/avatar_talking.gif' %}";
+
+        avatar.src = isTalking ? talkingAvatar : idleAvatar;
+    }
+
+</script>
+</html>

@@ -1,0 +1,126 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cdc7c7; /* White background to match the Tunisia flag */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #000000; /* Black text for contrast */
+}
+
+/* Chat window */
+.chat-window {
+    position: absolute;
+    min-width: 320px;
+    min-height: 560px;
+
+    max-width: 400px;
+    max-height: 680px;
+
+    width: 22%;
+    height: 80%;
+
+    background-color: #ffffff; /* Light gray for the chat window */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 5px solid #c8102e; /* Bold red border to reflect the Tunisia flag */
+    justify-content: center;
+}
+
+/* Avatar */
+.avatar-container {
+    position: absolute;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+.avatar {
+    background-color: #000000;
+    min-width: 320px;
+
+    width: 100%; /* 70% of the chat window's width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 40%; /* Circular shape */
+    object-fit: cover;
+    border: 3px solid #c8102e; /* Red border around the avatar */
+    transform: translate(0, 0); /* Ensures proper positioning */
+}
+
+/* Logo container */
+.logo-container {
+    position: absolute;
+    top: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.logo {
+    
+    max-width: 65%; /* Adjust size of the logo */
+    height: auto; /* Maintain aspect ratio */
+
+}
+
+/* Response container */
+.response-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Position closer to the top */
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    flex-grow: 1;
+    max-height: 200px; /* Set a limit for responses */
+    overflow-y: auto; /* Add scrolling for overflow */
+}
+
+
+
+
+
+
+/* Microphone button */
+.speak-button {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    background-color: #c8102e; /* Red background for the microphone button */
+    border: 2px solid #c3c4bc; /* White border for contrast */
+}
+
+.mic-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(1); /* Ensures the mic icon is white for visibility */
+}
+
+/* Hover effect for button */
+.circle:hover {
+    background-color: #af1829; /* Darker red on hover */
+}
+

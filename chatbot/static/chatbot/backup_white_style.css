@@ -1,0 +1,143 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cdc7c7; /* White background to match the Tunisia flag */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #000000; /* Black text for contrast */
+}
+
+/* Chat window */
+.chat-window {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background-color: #ffffff; /* Light gray for the chat window */
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border: 3px solid #c8102e; /* Bold red border to reflect the Tunisia flag */
+}
+
+/* Avatar */
+.avatar-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #c8102e; /* Red border around the avatar */
+}
+
+/* Response container */
+.response-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.user-message {
+    color: #4e4b4b; /* Dark gray for user messages */
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    align-self: center;
+    text-align: center;
+}
+
+.bot-message {
+    color: #000000; /* Black for chatbot messages */
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    align-self: center;
+    text-align: center;
+}
+
+/* Microphone button */
+.speak-button {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    background-color: #c8102e; /* Red background for the microphone button */
+    border: 2px solid #ffffff; /* White border for contrast */
+}
+
+.mic-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(1); /* Ensures the mic icon is white for visibility */
+}
+
+/* Hover effect for button */
+.circle:hover {
+    background-color: #900d1c; /* Darker red on hover */
+}
+
+/* Scrollable responses for long chats */
+.response-container {
+    overflow-y: auto;
+    max-height: 80%; /* Allow scrolling within the chat window */
+}
+
+/* Add scrollbar styling (optional) */
+.response-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.response-container::-webkit-scrollbar-thumb {
+    background-color: #c8102e; /* Red scrollbar */
+    border-radius: 5px;
+}
+
+.response-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9; /* Light gray scrollbar track */
+}
+
+/* Fade-out effect */
+.fade-out {
+    animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
